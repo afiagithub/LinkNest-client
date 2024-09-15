@@ -4,8 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 const MainLayout = () => {
     return (
-        <div>
-            <Navbar/>
+        <div className='font-poppins'>
             <Outlet/>
         </div>
     );
