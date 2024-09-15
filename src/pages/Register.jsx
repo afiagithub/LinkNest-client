@@ -8,9 +8,12 @@ import Lottie from "lottie-react";
 import useAuth from "../hooks/useAuth"
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useAxiosPublic from "../hooks/useAxiosPublic"
 
 const Register = () => {
     const { createUser, updateUserProfile, setUser } = useAuth();
+
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const photoURL = 'https://i.ibb.co/QnTrVRz/icon.jpg';
 
@@ -38,12 +41,29 @@ const Register = () => {
         createUser(email, pass)
             .then((result) => {
                 updateUserProfile(userName, photoURL)
-                    .then(() => {
-                        console.log(result.user);
-                        setUser({ ...result.user, photoURL: photoURL, displayName: userName })
-                        navigate('/dashboard')
+                .then(async () => {
+                    console.log(result.user);
+                    setUser({ ...result.user, photoURL: photoURL, displayName: userName })
+
+                    const userInfo = {
+                        username: userName,
+                        email,
+                        fullname: '',                        
+                        photo: photoURL || 'https://i.ibb.co/QnTrVRz/icon.jpg',
+                        friend_list: [],
+                        hobbies: [],
+                        status: 'active'
+                    }
+                    const res = await axiosPublic.post("/users", userInfo);
+                    console.log(res);
+                    if (res.data.insertedId) {
+                        navigate('/')
                         toast.success("Successfully Registered")
-                    });
+                    }
+                    else{
+                        toast.error("User already exists")
+                    }
+                });
             })
             .catch((error) => {
                 console.log(error.message)
