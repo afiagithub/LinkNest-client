@@ -1,17 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home = () => {
+    const { user, logOut } = useAuth();
+    const handleSigOut = () => {
+        logOut()
+            .then(() => {
+                toast.success("Logged Out")
+            })
+    }
     return (
         <div className="bg-[#5654D1] h-screen flex flex-col justify-center items-center text-white">
             <h1 className="text-4xl lg:text-5xl font-bold mb-5 font-nun">LinkNest</h1>
             <p className="font-light text-sm lg:text-base">Explore your next friendship with LinkNest – Where connections begin!</p>
-            <div className="text-black flex flex-row justify-center items-center gap-5 mt-5">
-                <Link to={'/login'} className="btn bg-[#5DFBC5] border-2 border-[#5DFBC5] hover:border-[#5DFBC5] 
+            {
+                user ? <Link onClick={handleSigOut} className="btn bg-[#5DFBC5] border-2 border-[#5DFBC5] hover:border-[#5DFBC5] 
+                hover:bg-transparent hover:text-[#5DFBC5] lg:text-lg font-bold mt-5">LogOut</Link> :
+                    <div className="text-black flex flex-row justify-center items-center gap-5 mt-5">
+                        <Link to={'/login'} className="btn bg-[#5DFBC5] border-2 border-[#5DFBC5] hover:border-[#5DFBC5] 
                 hover:bg-transparent hover:text-[#5DFBC5] lg:text-lg font-bold">Log-In</Link>
-                <Link to={'/register'} className="btn bg-[#5DFBC5] border-2 border-[#5DFBC5] hover:border-[#5DFBC5] 
+                        <Link to={'/register'} className="btn bg-[#5DFBC5] border-2 border-[#5DFBC5] hover:border-[#5DFBC5] 
                 hover:bg-transparent hover:text-[#5DFBC5] lg:text-lg font-bold">Register</Link>
-            </div>
+                    </div>
+            }
         </div>
     );
 };

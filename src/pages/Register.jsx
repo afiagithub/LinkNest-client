@@ -5,8 +5,15 @@ import { FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import RegisterLogo from '../lotties/register.json'
 import Lottie from "lottie-react";
+import useAuth from "../hooks/useAuth"
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
+    const { createUser, updateUserProfile, setUser } = useAuth();
+    const navigate = useNavigate();
+    const photoURL = 'https://i.ibb.co/QnTrVRz/icon.jpg';
+
     const [show, setShow] = useState(false);
     const handleToggle = () => {
         setShow(!show);
@@ -15,6 +22,32 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
+        const { userName, email, pass, confirmPass } = data;
+        if (pass.length < 6) {
+            toast.error("Password must be at least 6 characters long");
+            return;
+        }
+        else if (!/^(?=.*[a-z])(?=.*[A-Z]).+$/.test(pass)) {
+            toast.error("Password must have a uppercase and a lowercase letter");
+            return;
+        }
+        else if (pass !== confirmPass) {
+            toast.error("Password does not match Confirm Password");
+            return;
+        }
+        createUser(email, pass)
+            .then((result) => {
+                updateUserProfile(userName, photoURL)
+                    .then(() => {
+                        console.log(result.user);
+                        setUser({ ...result.user, photoURL: photoURL, displayName: userName })
+                        navigate('/')
+                        toast.success("Successfully Registered")
+                    });
+            })
+            .catch((error) => {
+                console.log(error.message)
+            });
 
     }
     return (
@@ -31,12 +64,13 @@ const Register = () => {
                     <div className="space-y-4">
                         <div>
                             <label className="block mb-2 text-sm">UserName</label>
-                            <input type="text" name="name" placeholder="Leroy Jenkins" {...register("fullName")}
+                            <input type="text" name="name" placeholder="Enter Username" {...register("userName", { required: true })}
                                 className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800" />
                         </div>
+                        {errors.userName && <span className="text-red-700 font-semibold">This field is required</span>}
                         <div>
                             <label className="block mb-2 text-sm">Email address</label>
-                            <input type="email" name="email" placeholder="leroy@jenkins.com" {...register("email", { required: true })}
+                            <input type="email" name="email" placeholder="Enter email address" {...register("email", { required: true })}
                                 className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800" />
                         </div>
                         {errors.email && <span className="text-red-700 font-semibold">This field is required</span>}
