@@ -41,7 +41,7 @@ const Register = () => {
                     .then(() => {
                         console.log(result.user);
                         setUser({ ...result.user, photoURL: photoURL, displayName: userName })
-                        navigate('/')
+                        navigate('/dashboard')
                         toast.success("Successfully Registered")
                     });
             })
