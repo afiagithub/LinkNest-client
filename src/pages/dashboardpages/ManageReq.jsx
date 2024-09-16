@@ -71,7 +71,7 @@ const ManageReq = () => {
             confirmButtonText: "Reject Friend Request"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const result = await axiosPublic.patch('/cancle-request', patchData)
+                const result = await axiosPublic.patch('/cancel-request', patchData)
                 console.log(result.data);
                 
                 if (result.data.result1.modifiedCount > 0) {

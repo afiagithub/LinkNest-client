@@ -88,11 +88,12 @@ const UserHome = () => {
                 <h3 className='text-xl font-bold font-nun text-center py-3'>Make New Friends</h3>
                 <hr />
                 {
-                    allUser.length > 0 ? allUser.map(user => <div key={user?._id} user={user} className='flex flex-row items-center gap-4 mx-auto w-4/5 py-4'>
+                    allUser.length > 0 ? allUser.slice(0,4).map(user => <div key={user?._id} user={user} className='flex flex-row items-center gap-4 mx-auto w-4/5 py-4'>
                         <img className='w-16 h-16 rounded-lg' src={user?.photo} alt="User" />
                         <div className='flex flex-col justify-center items-center gap-3'>
                             <h2 className='text-lg font-semibold'>{user?.username}</h2>
                             {username === user.username ? <p className='text-green-500'>Your Profile</p> :
+                            friend_list.includes(user.username) ? <p className='text-blue-500'>Friend</p> :
                                 request_list.includes(user.username) ?
                                     <button className='btn text-black' disabled>Request Pending</button> :
                                     <button onClick={() => handleRequest(user.email)}
