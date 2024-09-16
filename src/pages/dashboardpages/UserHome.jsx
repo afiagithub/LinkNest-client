@@ -3,6 +3,7 @@ import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from "../../components/shared/LoadingSpinner"
 import getUser from '../../hooks/getUser';
+import Swal from 'sweetalert2'
 
 const UserHome = () => {
     const [currentUser, isUser] = getUser();
@@ -12,13 +13,12 @@ const UserHome = () => {
     const [allUser, setAllUser] = useState([])
 
     const { data: users = [], isLoading, refetch } = useQuery({
-        queryKey: ['users'],
+        queryKey: ['users', request_list],
         queryFn: async () => {
             const res = await axiosPublic.get('/users')
             setAllUser(res.data);
             return res.data;
-        },
-        refetchOnWindowFocus: false,
+        }
     })
 
     const handleSearch = async (e) => {
@@ -31,25 +31,34 @@ const UserHome = () => {
     const handleRequest = async (email) => {
         const res = await axiosPublic.get(`/users/${email}`)
         // console.log(res.data);
-        const rcv_username = res.data.username;
-        const patchData = {
-            rcv_username,
-            send_username: currentUser.username
+        if (res.data) {
+            const rcv_username = res.data.username;
+            const patchData = {
+                rcv_username,
+                send_username: currentUser.username
+            }
+            const requestData = {
+                requester_email: currentUser.email,
+                requester_username: currentUser.username,
+                requester_photo: currentUser.photo,
+                receiver_email: res.data.email,
+                receiver_username: res.data.username,
+                status: 'Pending'
+            }
+            const requestRes = await axiosPublic.post(`/request`, requestData);
+            if (requestRes.data.insertedId) {
+                const result = await axiosPublic.patch(`/request-list`, patchData)
+                if (result.data.result1.modifiedCount > 0) {
+                    Swal.fire({
+                        title: "Sent Request!",
+                        text: "Friend Request has been sent",
+                        icon: "success",
+                        showConfirmButton: false,
+                    });                    
+                }
+            }
         }
-
-        const requestData = {
-            requester_email: currentUser.email,
-            requester_username: currentUser.username,
-            receiver_email: res.data.email,
-            receiver_username: res.data.username,
-            status: 'Pending'
-        }
-        const requestRes = await axiosPublic.post(`/request`, requestData);
-        if (requestRes.data.insertedId) {
-            const result = await axiosPublic.patch(`/request-list`, patchData)
-            console.log(result);
-        }
-
+        window.location.reload(true);
     }
     if (isLoading || isUser) {
         return <LoadingSpinner />
@@ -83,7 +92,6 @@ const UserHome = () => {
                         <img className='w-16 h-16 rounded-lg' src={user?.photo} alt="User" />
                         <div className='flex flex-col justify-center items-center gap-3'>
                             <h2 className='text-lg font-semibold'>{user?.username}</h2>
-                            {/* <h2 className='text-lg font-semibold'>{user?.request_list}</h2> */}
                             {username === user.username ? <p className='text-green-500'>Your Profile</p> :
                                 request_list.includes(user.username) ?
                                     <button className='btn text-black' disabled>Request Pending</button> :

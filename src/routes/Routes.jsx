@@ -7,6 +7,7 @@ import PrivateRoute from "../protected/PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import UserHome from "../pages/dashboardpages/UserHome";
 import AddFriend from "../pages/dashboardpages/AddFriend";
+import ManageReq from "../pages/dashboardpages/ManageReq";
 
 export const router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
             {
                 path: 'add-friend',
                 element: <AddFriend/>
+            },
+            {
+                path: 'manage-req',
+                element: <ManageReq/>
             }
         ]
     }

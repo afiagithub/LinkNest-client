@@ -17,6 +17,30 @@ const AddFriend = () => {
         // console.log(res.data);        
         setAllUser(res.data);
     }
+
+    const handleRequest = async (email) => {
+        const res = await axiosPublic.get(`/users/${email}`)
+        // console.log(res.data);
+        const rcv_username = res.data.username;
+        const patchData = {
+            rcv_username,
+            send_username: currentUser.username
+        }
+
+        const requestData = {
+            requester_email: currentUser.email,
+            requester_username: currentUser.username,
+            receiver_email: res.data.email,
+            receiver_username: res.data.username,
+            status: 'Pending'
+        }
+        const requestRes = await axiosPublic.post(`/request`, requestData);
+        if (requestRes.data.insertedId) {
+            const result = await axiosPublic.patch(`/request-list`, patchData)
+            console.log(result);
+        }
+    }
+
     if (isUser) {
         return <LoadingSpinner />
     }
