@@ -51,6 +51,7 @@ const Register = () => {
                         fullname: '',                        
                         photo: photoURL || 'https://i.ibb.co/QnTrVRz/icon.jpg',
                         friend_list: [],
+                        request_list: [],
                         hobbies: [],
                         status: 'active'
                     }

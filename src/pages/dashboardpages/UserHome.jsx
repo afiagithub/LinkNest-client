@@ -6,7 +6,7 @@ import getUser from '../../hooks/getUser';
 
 const UserHome = () => {
     const [currentUser, isUser] = getUser();
-    const {username, email, photo, fullname, friend_list, hobbies} = currentUser;
+    const { username, email, photo, fullname, friend_list, hobbies } = currentUser;
 
     const axiosPublic = useAxiosPublic();
     const [allUser, setAllUser] = useState([])
@@ -27,6 +27,24 @@ const UserHome = () => {
         const res = await axiosPublic.get(`/user/${username}`)
         setAllUser(res.data);
     }
+
+    const handleRequest = async (email) => {
+        const res = await axiosPublic.get(`/users/${email}`)
+        // console.log(res.data);
+
+        const requestData = {
+            requester_email: currentUser.email,
+            requester_username: currentUser.username,
+            receiver_email: res.data.email,
+            receiver_username: res.data.username,
+            status: 'Pending'
+        }
+        const requestRes = await axiosPublic.post(`/request`, requestData);
+        if (requestRes.data.insertedId) {
+            const res = await axiosPublic.patch(`/request-list/${currentUser.email}`)
+        }
+
+    }
     if (isLoading || isUser) {
         return <LoadingSpinner />
     }
@@ -38,7 +56,7 @@ const UserHome = () => {
                 <div className="text-left ml-6 md:ml-10 lg:ml-12">
                     <p className="my-5 text-xl font-bold">User Information: </p>
                     <p className="font-bold">Email: <span className="text-[#5654D1]">{email}</span></p>
-                    <p className="font-bold">Full Name: <span className="text-[#5654D1]">{fullname}</span></p>                    
+                    <p className="font-bold">Full Name: <span className="text-[#5654D1]">{fullname}</span></p>
                     <p className="font-bold">Hobbies: <span className="text-[#5654D1]">{hobbies}</span></p>
                 </div>
             </div>
@@ -58,8 +76,8 @@ const UserHome = () => {
                         <img className='w-16 h-16 rounded-lg' src={user?.photo} alt="User" />
                         <div className='flex flex-col justify-center items-center gap-3'>
                             <h2 className='text-lg font-semibold'>{user?.username}</h2>
-                            <button 
-                            className='btn bg-[#5654D1] border-2 text-white border-[#5654D1] hover:border-[#5654D1] 
+                            <button onClick={() => handleRequest(user.email)}
+                                className='btn bg-[#5654D1] border-2 text-white border-[#5654D1] hover:border-[#5654D1] 
                 hover:bg-transparent hover:text-[#5654D1]'>Add Friend</button>
                         </div>
                     </div>) : <p className='text-center text-lg py-2 text-red-500'>Sorry, No User Found</p>
