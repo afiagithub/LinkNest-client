@@ -8,7 +8,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useState } from "react";
 
 const DashBoardLayout = () => {
-    const { logOut } = useAuth();
+    const { user, logOut } = useAuth();
     const [show, setShow] = useState(false);
     const handleLogOut = () => {
         logOut()
@@ -41,7 +41,7 @@ const DashBoardLayout = () => {
                 : 'fixed translate-y-12 md:hidden bg-[#5654D1] text-[#ECDFCC] pt-4 pb-6 px-4 -translate-x-72 transition-all duration-200'}>
                 <div className="flex flex-col justify-between">
                     <div>
-                        <h2 className="text-2xl font-bold mb-5">Dashboard</h2>
+                        <h2 className="text-2xl font-bold mb-5">{}</h2>
                         <hr />
                         <ul className="font-semibold space-y-2 font-ubuntu mt-4">
                             {links}
@@ -60,7 +60,7 @@ const DashBoardLayout = () => {
             <div className="min-w-56 hidden md:flex min-h-screen bg-[#5654D1] text-[#ECDFCC] pt-4 pb-6 px-4">
                 <div className="flex flex-col justify-between h-full w-full">
                     <div>
-                        <h2 className="text-2xl font-bold mb-5">Dashboard</h2>
+                        <h2 className="text-2xl font-bold mb-5">{user.displayName}</h2>
                         <hr />
                         <ul className="font-semibold space-y-2 font-ubuntu mt-4">
                             {links}
