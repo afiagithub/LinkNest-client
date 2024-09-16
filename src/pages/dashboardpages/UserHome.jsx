@@ -31,6 +31,11 @@ const UserHome = () => {
     const handleRequest = async (email) => {
         const res = await axiosPublic.get(`/users/${email}`)
         // console.log(res.data);
+        const rcv_username = res.data.username;
+        const patchData = {
+            rcv_username,
+            send_username: currentUser.username
+        }
 
         const requestData = {
             requester_email: currentUser.email,
@@ -41,7 +46,8 @@ const UserHome = () => {
         }
         const requestRes = await axiosPublic.post(`/request`, requestData);
         if (requestRes.data.insertedId) {
-            const res = await axiosPublic.patch(`/request-list/${currentUser.email}`)
+            const result = await axiosPublic.patch(`/request-list`, patchData)
+            console.log(result);
         }
 
     }
