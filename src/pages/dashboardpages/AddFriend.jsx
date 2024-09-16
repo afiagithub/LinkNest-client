@@ -4,6 +4,7 @@ import getUser from '../../hooks/getUser';
 import LoadingSpinner from '../../components/shared/LoadingSpinner';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2'
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const AddFriend = () => {
     const [currentUser, isUser] = getUser();
@@ -11,11 +12,12 @@ const AddFriend = () => {
 
     const [allUser, setAllUser] = useState([])
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users', request_list],
         queryFn: async () => {
-            const res = await axiosPublic.get('/users')
+            const res = await axiosSecure.get('/users')
             setAllUser(res.data);
             return res.data;
         }
@@ -41,6 +43,7 @@ const AddFriend = () => {
         const requestData = {
             requester_email: currentUser.email,
             requester_username: currentUser.username,
+            requester_photo: currentUser.photo,
             receiver_email: res.data.email,
             receiver_username: res.data.username,
             status: 'Pending'
@@ -60,7 +63,7 @@ const AddFriend = () => {
         window.location.reload(true);
     }
 
-    if (isUser) {
+    if (isUser || isLoading) {
         return <LoadingSpinner />
     }
     return (

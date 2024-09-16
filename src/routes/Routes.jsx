@@ -8,6 +8,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import UserHome from "../pages/dashboardpages/UserHome";
 import AddFriend from "../pages/dashboardpages/AddFriend";
 import ManageReq from "../pages/dashboardpages/ManageReq";
+import ManageUser from "../pages/dashboardpages/ManageUser";
 
 export const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
             {
                 path: 'manage-req',
                 element: <ManageReq/>
+            },
+            {
+                path: 'update-profile',
+                element: <ManageUser/>
             }
         ]
     }

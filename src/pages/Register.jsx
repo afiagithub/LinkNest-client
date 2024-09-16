@@ -26,7 +26,12 @@ const Register = () => {
 
     const onSubmit = async (data) => {
         const { userName, email, pass, confirmPass } = data;
-        if (pass.length < 6) {
+        const res = await axiosPublic.get(`/chk-user/${userName}`)
+        if(res.data){
+            toast.error("Username already exists");
+            return;
+        }
+        else if (pass.length < 6) {
             toast.error("Password must be at least 6 characters long");
             return;
         }
@@ -58,7 +63,7 @@ const Register = () => {
                     const res = await axiosPublic.post("/users", userInfo);
                     console.log(res);
                     if (res.data.insertedId) {
-                        navigate('/dashboard')
+                        navigate('/')
                         toast.success("Successfully Registered")
                     }
                     else{

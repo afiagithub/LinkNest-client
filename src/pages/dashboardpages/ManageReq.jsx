@@ -2,22 +2,22 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import getUser from '../../hooks/getUser';
 import LoadingSpinner from '../../components/shared/LoadingSpinner';
-import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { MdOutlineDelete } from "react-icons/md";
 import { SiTicktick } from "react-icons/si";
 import Swal from 'sweetalert2'
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const ManageReq = () => {
     const [currentUser, isUser] = getUser();
     const { username, email } = currentUser;
 
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();    
 
     const [friendReq, setFriendReq] = useState([]);
     const { data: requests = [], isLoading, refetch } = useQuery({
         queryKey: ['requests', currentUser],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/request/${username}`)
+            const res = await axiosSecure.get(`/request/${username}`)
             // console.log(res.data);
 
             setFriendReq(res.data);
@@ -41,7 +41,7 @@ const ManageReq = () => {
             confirmButtonText: "Accept Friend Request"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const result = await axiosPublic.patch('/accept-request', patchData)
+                const result = await axiosSecure.patch('/accept-request', patchData)
                 console.log(result.data);
                 
                 if (result.data.result1.modifiedCount > 0) {
@@ -71,7 +71,7 @@ const ManageReq = () => {
             confirmButtonText: "Reject Friend Request"
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const result = await axiosPublic.patch('/cancel-request', patchData)
+                const result = await axiosSecure.patch('/cancel-request', patchData)
                 console.log(result.data);
                 
                 if (result.data.result1.modifiedCount > 0) {

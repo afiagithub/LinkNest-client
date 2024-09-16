@@ -12,7 +12,7 @@ const Login = () => {
     const { signInUser } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location?.state || '/dashboard';
+    const from = location?.state || '/';
 
     const [show, setShow] = useState(false);
 

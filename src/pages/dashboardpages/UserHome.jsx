@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from "../../components/shared/LoadingSpinner"
 import getUser from '../../hooks/getUser';
 import Swal from 'sweetalert2'
+import FriendList from '../../components/FriendList';
 
 const UserHome = () => {
     const [currentUser, isUser] = getUser();
     const { username, email, photo, fullname, friend_list, request_list, hobbies } = currentUser;
 
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
+
     const [allUser, setAllUser] = useState([])
 
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['users', request_list],
         queryFn: async () => {
-            const res = await axiosPublic.get('/users')
+            const res = await axiosSecure.get('/users')
             setAllUser(res.data);
             return res.data;
         }
@@ -75,9 +79,12 @@ const UserHome = () => {
                     <p className="font-bold">Requests: <span className="text-[#5654D1]">{request_list}</span></p>
                     <p className="font-bold">Hobbies: <span className="text-[#5654D1]">{hobbies}</span></p>
                 </div>
+                <FriendList/>
             </div>
             <hr className="lg:hidden border-[#2D3663] mr-4 mb-5" />
             <hr className="lg:hidden border-[#2D3663] mr-4" />
+            
+
             <div className='mt-5 lg:mt-10 mx-8 lg:mx-0 lg:mr-8 lg:w-2/6'>
                 <form onSubmit={handleSearch} className="flex flex-row gap-4 items-center justify-end mr-5 md:mr-10 mb-5 md:mb-8">
                     <input type="text" name="username" placeholder="Enter username" className="input input-bordered w-48 md:w-auto" />
