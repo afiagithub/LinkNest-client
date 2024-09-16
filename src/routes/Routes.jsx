@@ -6,6 +6,7 @@ import Login from "../pages/Login";
 import PrivateRoute from "../protected/PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import UserHome from "../pages/dashboardpages/UserHome";
+import AddFriend from "../pages/dashboardpages/AddFriend";
 
 export const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <UserHome/>
+            },
+            {
+                path: 'add-friend',
+                element: <AddFriend/>
             }
         ]
     }

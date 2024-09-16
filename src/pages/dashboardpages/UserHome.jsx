@@ -6,7 +6,7 @@ import getUser from '../../hooks/getUser';
 
 const UserHome = () => {
     const [currentUser, isUser] = getUser();
-    const { username, email, photo, fullname, friend_list, hobbies } = currentUser;
+    const { username, email, photo, fullname, friend_list, request_list, hobbies } = currentUser;
 
     const axiosPublic = useAxiosPublic();
     const [allUser, setAllUser] = useState([])
@@ -63,6 +63,7 @@ const UserHome = () => {
                     <p className="my-5 text-xl font-bold">User Information: </p>
                     <p className="font-bold">Email: <span className="text-[#5654D1]">{email}</span></p>
                     <p className="font-bold">Full Name: <span className="text-[#5654D1]">{fullname}</span></p>
+                    <p className="font-bold">Requests: <span className="text-[#5654D1]">{request_list}</span></p>
                     <p className="font-bold">Hobbies: <span className="text-[#5654D1]">{hobbies}</span></p>
                 </div>
             </div>
@@ -71,8 +72,8 @@ const UserHome = () => {
             <div className='mt-5 lg:mt-10 mx-8 lg:mx-0 lg:mr-8 lg:w-2/6'>
                 <form onSubmit={handleSearch} className="flex flex-row gap-4 items-center justify-end mr-5 md:mr-10 mb-5 md:mb-8">
                     <input type="text" name="username" placeholder="Enter username" className="input input-bordered w-48 md:w-auto" />
-                    <button className="btn bg-[#47CCC8] text-white border-2 border-[#47CCC8] 
-                hover:border-[#47CCC8] hover:bg-transparent hover:text-[#47CCC8]">Search</button>
+                    <button className="btn bg-[#5654D1] text-white border-2 border-[#5654D1] 
+                hover:border-[#5654D1] hover:bg-transparent hover:text-[#5654D1]">Search</button>
                 </form>
                 <hr />
                 <h3 className='text-xl font-bold font-nun text-center py-3'>Make New Friends</h3>
@@ -82,9 +83,16 @@ const UserHome = () => {
                         <img className='w-16 h-16 rounded-lg' src={user?.photo} alt="User" />
                         <div className='flex flex-col justify-center items-center gap-3'>
                             <h2 className='text-lg font-semibold'>{user?.username}</h2>
-                            <button onClick={() => handleRequest(user.email)}
-                                className='btn bg-[#5654D1] border-2 text-white border-[#5654D1] hover:border-[#5654D1] 
-                hover:bg-transparent hover:text-[#5654D1]'>Add Friend</button>
+                            {/* <h2 className='text-lg font-semibold'>{user?.request_list}</h2> */}
+                            {username === user.username ? <p className='text-green-500'>Your Profile</p> :
+                                request_list.includes(user.username) ?
+                                    <button className='btn text-black' disabled>Request Pending</button> :
+                                    <button onClick={() => handleRequest(user.email)}
+                                        className='btn bg-[#5654D1] border-2 text-white border-[#5654D1] 
+                                    hover:border-[#5654D1] hover:bg-transparent hover:text-[#5654D1]'>
+                                        Add Friend</button>
+                            }
+
                         </div>
                     </div>) : <p className='text-center text-lg py-2 text-red-500'>Sorry, No User Found</p>
                 }
