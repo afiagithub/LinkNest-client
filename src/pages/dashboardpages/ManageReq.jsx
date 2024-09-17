@@ -6,6 +6,7 @@ import { MdOutlineDelete } from "react-icons/md";
 import { SiTicktick } from "react-icons/si";
 import Swal from 'sweetalert2'
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet-async';
 
 const ManageReq = () => {
     const [currentUser, isUser] = getUser();
@@ -90,6 +91,9 @@ const ManageReq = () => {
     }
     return (
         <div className="z-0 mt-10 px-10 md:px-0">
+            <Helmet>
+                <title>LinkNest | Manage Requests</title>
+            </Helmet>
             <h1 className="text-4xl font-bold font-ubuntu text-center mb-10">Incoming Requests</h1>
             <div className="overflow-x-auto">
                 <table className="table">

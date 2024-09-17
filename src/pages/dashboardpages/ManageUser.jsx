@@ -3,6 +3,7 @@ import getUser from '../../hooks/getUser';
 import LoadingSpinner from '../../components/shared/LoadingSpinner';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const ManageUser = () => {
     const [currentUser, isUser] = getUser();
@@ -46,6 +47,9 @@ const ManageUser = () => {
     }
     return (
         <div className="flex flex-col max-w-md mx-auto p-6 rounded-md">
+            <Helmet>
+                <title>LinkNest | Manage Profile</title>
+            </Helmet>
             <div className="mb-5 text-center">
                 <h1 className="my-3 text-3xl font-bold font-nun text-[#5654D1]">Update Your Profile</h1>
             </div>

@@ -10,6 +10,7 @@ import AddFriend from "../pages/dashboardpages/AddFriend";
 import ManageReq from "../pages/dashboardpages/ManageReq";
 import ManageUser from "../pages/dashboardpages/ManageUser";
 import FriendList from "../components/FriendList";
+import Recommendation from "../components/Recommendation";
 
 export const router = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
             {
                 path: 'all-friends',
                 element: <FriendList/>
+            },
+            {
+                path: 'recommend',
+                element: <Recommendation/>
             }
         ]
     }

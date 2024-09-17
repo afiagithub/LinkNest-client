@@ -27,7 +27,7 @@ const DashBoardLayout = () => {
         <li><Link to='/dashboard/all-friends'>All Friends List</Link></li>
         <li><Link to='/dashboard/add-friend'>Add Friend</Link></li>
         <li><Link to='/dashboard/manage-req'>Manage Friend Request</Link></li>
-        <li><Link to='/'>Recommended Friends</Link></li></>
+        <li><Link to='/dashboard/recommend'>Recommended Friends</Link></li></>
     return (
         <div className="flex flex-row gap-5 relative">
             <div className="fixed md:hidden text-2xl pl-4 pt-5" onClick={handleCollaspe}>
@@ -59,7 +59,7 @@ const DashBoardLayout = () => {
             </div>
 
             <div className="min-w-56 hidden md:flex min-h-screen bg-[#5654D1] text-[#ECDFCC] pt-4 pb-6 px-4">
-                <div className="flex flex-col justify-between h-full w-full">
+                <div className="flex flex-col gap-5 h-full w-full">
                     <div>
                         <h2 className="text-2xl font-bold mb-5">{user.displayName}</h2>
                         <hr />

@@ -9,6 +9,7 @@ import useAuth from "../hooks/useAuth"
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useAxiosPublic from "../hooks/useAxiosPublic"
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
     const { createUser, updateUserProfile, setUser } = useAuth();
@@ -78,6 +79,9 @@ const Register = () => {
     }
     return (
         <div className="flex flex-col lg:flex-row justify-between items-center w-full rounded-md sm:p-10 mb-10 mt-5">
+            <Helmet>
+                <title>LinkNest | Register</title>
+            </Helmet>
             <div className="hidden lg:flex w-3/6">
                 <p className="w-96 mx-auto"><Lottie animationData={RegisterLogo} loop={true}></Lottie></p>
             </div>

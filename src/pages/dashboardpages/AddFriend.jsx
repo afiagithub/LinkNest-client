@@ -5,6 +5,7 @@ import LoadingSpinner from '../../components/shared/LoadingSpinner';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2'
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet-async';
 
 const AddFriend = () => {
     const [currentUser, isUser] = getUser();
@@ -68,6 +69,9 @@ const AddFriend = () => {
     }
     return (
         <div className='mb-5 lg:mb-0 mt-5 lg:mt-10'>
+            <Helmet>
+                <title>LinkNest | Add Friend</title>
+            </Helmet>
             <h1 className='text-center my-5 lg:my-10 text-3xl font-nun font-bold'>Search User & Add Friend</h1>
             <form onSubmit={handleSearch} className="flex flex-row gap-4 items-center justify-end mr-5 md:mr-10 mb-5 md:mb-8">
                 <input type="text" name="username" placeholder="Enter username" className="input input-bordered w-48 md:w-auto" />

@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import useAuth from "../hooks/useAuth";
 import LoginLogo from '../lotties/login.json'
 import Lottie from "lottie-react";
+import { Helmet } from "react-helmet-async";
 const Login = () => {
     const { signInUser } = useAuth();
     const navigate = useNavigate();
@@ -33,7 +34,9 @@ const Login = () => {
     }
     return (
         <div className="flex flex-col lg:flex-row justify-between items-center w-full rounded-md sm:p-10 mb-10 mt-5">
-            
+            <Helmet>
+                <title>LinkNest | Login</title>
+            </Helmet>
             <div className="hidden lg:flex w-3/6">
             <p className="w-96 mx-auto"><Lottie animationData={LoginLogo} loop={true}></Lottie></p>
             </div>

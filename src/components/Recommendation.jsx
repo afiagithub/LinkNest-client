@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import LoadingSpinner from './shared/LoadingSpinner';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet-async';
 
 const Recommendation = () => {
     const [currentUser, isUser] = getUser();
@@ -62,6 +63,9 @@ const Recommendation = () => {
     }
     return (
         <div className='w-5/6 text-center mb-5 lg:mb-0 mt-5 lg:mt-10 mx-auto'>
+            <Helmet>
+                <title>LinkNest | Recommendation</title>
+            </Helmet>
             <h1 className='text-left font-nun font-bold text-2xl'>Recommendation</h1>
             <div className='grid grid-cols-2 gap-5'>
                 {
@@ -80,10 +84,10 @@ const Recommendation = () => {
                                 </div>
                             </div>
                             {currentUser.request_list.includes(rec.username) ?
-                                <button className='btn text-black' disabled>Request Pending</button> :
+                                <button className='btn text-black btn-sm' disabled>Request Pending</button> :
                                 <button onClick={() => handleRequest(rec.email)}
                                     className='btn bg-[#5654D1] border-2 text-white border-[#5654D1] 
-                                    hover:border-[#5654D1] hover:bg-transparent hover:text-[#5654D1]'>
+                                    hover:border-[#5654D1] hover:bg-transparent hover:text-[#5654D1] btn-sm'>
                                     Add Friend</button>
                             }
                         </div>

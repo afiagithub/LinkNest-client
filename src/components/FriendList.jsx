@@ -5,6 +5,7 @@ import useAxiosPublic from '../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2'
 import useAxiosSecure from '../hooks/useAxiosSecure';
+import { Helmet } from 'react-helmet-async';
 
 const FriendList = () => {
     const [currentUser, isUser] = getUser();
@@ -59,6 +60,9 @@ const FriendList = () => {
     }
     return (
         <div className='w-5/6 text-center mb-5 lg:mb-0 mt-5 lg:mt-10 mx-auto'>
+            <Helmet>
+                <title>LinkNest | Friends</title>
+            </Helmet>
             <h1 className='text-left font-nun font-bold text-2xl'>Friends List</h1>
             <div className='grid grid-cols-2 gap-5'>
                 {
