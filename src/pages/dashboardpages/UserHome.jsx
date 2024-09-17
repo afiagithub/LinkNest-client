@@ -6,6 +6,7 @@ import LoadingSpinner from "../../components/shared/LoadingSpinner"
 import getUser from '../../hooks/getUser';
 import Swal from 'sweetalert2'
 import FriendList from '../../components/FriendList';
+import Recommendation from '../../components/Recommendation';
 
 const UserHome = () => {
     const [currentUser, isUser] = getUser();
@@ -81,6 +82,7 @@ const UserHome = () => {
                     <p className="font-bold">Hobbies: <span className="text-[#5654D1]">{hobbies}</span></p>
                 </div>
                 <FriendList/>
+                <Recommendation/>
             </div>
             <hr className="lg:hidden border-[#2D3663] mr-4 mb-5" />
             <hr className="lg:hidden border-[#2D3663] mr-4" />
@@ -96,7 +98,7 @@ const UserHome = () => {
                 <h3 className='text-xl font-bold font-nun text-center py-3'>Make New Friends</h3>
                 <hr />
                 {
-                    allUser.length > 0 ? allUser.slice(0,4).map(user => <div key={user?._id} user={user} className='flex flex-row items-center gap-4 mx-auto w-4/5 py-4'>
+                    allUser.length > 0 ? allUser.slice(0,6).map(user => <div key={user?._id} user={user} className='flex flex-row items-center gap-4 mx-auto w-4/5 py-4'>
                         <img className='w-16 h-16 rounded-lg' src={user?.photo} alt="User" />
                         <div className='flex flex-col justify-center items-center gap-3'>
                             <h2 className='text-lg font-semibold'>{user?.username}</h2>

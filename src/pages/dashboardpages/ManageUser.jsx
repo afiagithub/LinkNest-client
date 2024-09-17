@@ -2,6 +2,7 @@ import React from 'react';
 import getUser from '../../hooks/getUser';
 import LoadingSpinner from '../../components/shared/LoadingSpinner';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import Swal from 'sweetalert2';
 
 const ManageUser = () => {
     const [currentUser, isUser] = getUser();
@@ -34,12 +35,19 @@ const ManageUser = () => {
         }
         console.log(userInfo);
         const res = await axiosPublic.put(`/users/${_id}`, userInfo);
+        if (res.data.modifiedCount > 0) {
+            Swal.fire({
+                title: "Successful",
+                text: "Updated User Profile",
+                icon: "success"
+            });
+        }
         console.log(res);
     }
     return (
         <div className="flex flex-col max-w-md mx-auto p-6 rounded-md">
             <div className="mb-5 text-center">
-                <h1 className="my-3 text-3xl font-bold font-nun text-[#20B2AA]">Update Your Profile</h1>
+                <h1 className="my-3 text-3xl font-bold font-nun text-[#5654D1]">Update Your Profile</h1>
             </div>
             <form onSubmit={handleUpdate} className="space-y-8 text-left">
                 <div className="space-y-4">

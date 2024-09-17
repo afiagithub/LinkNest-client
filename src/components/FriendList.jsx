@@ -58,9 +58,9 @@ const FriendList = () => {
         return <LoadingSpinner />
     }
     return (
-        <div className='lg:w-5/6 text-center mb-5 lg:mb-0 mt-5 lg:mt-10 mx-auto'>
+        <div className='w-5/6 text-center mb-5 lg:mb-0 mt-5 lg:mt-10 mx-auto'>
             <h1 className='text-left font-nun font-bold text-2xl'>Friends List</h1>
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-5'>
+            <div className='grid grid-cols-2 gap-5'>
                 {
                     frnd.length > 0 ? frnd.map(fr => <div key={fr._id} fr={fr}
                         className="card card-compact w-60 shadow-xl bg-[#5654d136] mt-5 lg:mt-10">
