@@ -2,7 +2,7 @@
 LinkNest-Friend-Making-App
 
 # Live Site URL
-[https://diagnostic-app-auth.web.app/](https://postify-auth.web.app/)
+https://postify-auth.web.app/
 
 # Project Overview
 LinkNest is a social platform that allows users to manage their profiles, connect with others, and expand their network through friend requests. Users can send, accept, or reject friend requests, and the platform provides personalized recommendations based on mutual connections.
