@@ -9,6 +9,7 @@ import UserHome from "../pages/dashboardpages/UserHome";
 import AddFriend from "../pages/dashboardpages/AddFriend";
 import ManageReq from "../pages/dashboardpages/ManageReq";
 import ManageUser from "../pages/dashboardpages/ManageUser";
+import FriendList from "../components/FriendList";
 
 export const router = createBrowserRouter([
     {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
             {
                 path: 'update-profile',
                 element: <ManageUser/>
+            },
+            {
+                path: 'all-friends',
+                element: <FriendList/>
             }
         ]
     }

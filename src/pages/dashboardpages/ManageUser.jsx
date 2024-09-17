@@ -45,13 +45,13 @@ const ManageUser = () => {
                 <div className="space-y-4">
                     <div>
                         <label className="block mb-2 text-sm">Username</label>
-                        <input type="text" name="username" defaultValue={username}
-                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800" />
+                        <input type="text" name="username" defaultValue={username} disabled
+                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-500 dark:text-white" />
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">Email Address</label>
-                        <input type="email" name="email" defaultValue={email}
-                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-50 dark:text-gray-800" />
+                        <input type="email" name="email" defaultValue={email} disabled
+                            className="w-full px-3 py-2 border rounded-md dark:border-gray-300 dark:bg-gray-500 dark:text-white" />
                     </div>
                     <div>
                         <label className="block mb-2 text-sm">Full Name</label>

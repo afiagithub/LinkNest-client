@@ -17,7 +17,7 @@ const UserHome = () => {
     const [allUser, setAllUser] = useState([])
 
     const { data: users = [], isLoading, refetch } = useQuery({
-        queryKey: ['users', request_list],
+        queryKey: ['users', request_list, friend_list],
         queryFn: async () => {
             const res = await axiosSecure.get('/users')
             setAllUser(res.data);
@@ -33,7 +33,7 @@ const UserHome = () => {
     }
 
     const handleRequest = async (email) => {
-        const res = await axiosPublic.get(`/users/${email}`)
+        const res = await axiosSecure.get(`/users/${email}`)
         // console.log(res.data);
         if (res.data) {
             const rcv_username = res.data.username;
@@ -62,6 +62,7 @@ const UserHome = () => {
                 }
             }
         }
+        refetch()
         window.location.reload(true);
     }
     if (isLoading || isUser) {

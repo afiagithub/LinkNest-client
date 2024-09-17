@@ -32,7 +32,7 @@ const AddFriend = () => {
     }
 
     const handleRequest = async (email) => {
-        const res = await axiosPublic.get(`/users/${email}`)
+        const res = await axiosSecure.get(`/users/${email}`)
         // console.log(res.data);
         const rcv_username = res.data.username;
         const patchData = {

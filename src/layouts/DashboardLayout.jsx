@@ -24,7 +24,7 @@ const DashBoardLayout = () => {
     const links = <>
         <li><Link to='/dashboard'>Home Page</Link></li>
         <li><Link to='/dashboard/update-profile'>Manage Profile</Link></li>
-        <li><Link to='/'>All Friends List</Link></li>
+        <li><Link to='/dashboard/all-friends'>All Friends List</Link></li>
         <li><Link to='/dashboard/add-friend'>Add Friend</Link></li>
         <li><Link to='/dashboard/manage-req'>Manage Friend Request</Link></li>
         <li><Link to='/'>Recommended Friends</Link></li></>

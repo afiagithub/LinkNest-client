@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
@@ -11,8 +11,6 @@ import Lottie from "lottie-react";
 const Login = () => {
     const { signInUser } = useAuth();
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location?.state || '/';
 
     const [show, setShow] = useState(false);
 
@@ -26,7 +24,7 @@ const Login = () => {
         signInUser(email, pass)
             .then((result) => {
                 if (result.user)
-                    navigate(`${from}`)
+                    navigate('/')
                 toast.success("Successfully Logged In")
             })
             .catch(() => {
